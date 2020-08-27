@@ -57,6 +57,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="Obs2" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Conferente" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Conferido" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Preferencial" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="ListaItensFinalizados">
@@ -214,6 +215,7 @@
             <s:element minOccurs="1" maxOccurs="1" name="opcao" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="numero" type="s:long" />
             <s:element minOccurs="1" maxOccurs="1" name="filial" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="botao" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>

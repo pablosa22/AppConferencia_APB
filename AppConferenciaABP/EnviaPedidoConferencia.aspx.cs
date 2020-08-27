@@ -23,17 +23,51 @@ namespace AppConferenciaABP
 
             long numero = string.IsNullOrEmpty(TextBoxNumero.Text) ? 0 : Convert.ToInt64(TextBoxNumero.Text);
             int condVenda = nn.ValidaEnvioPedidoPainel(opcao, numero, filial).CondVenda;
+            int botao = 1;
 
             if (opcao == 2 && filial != 0 && numped < 999998 && condVenda == 8)
             {
-                nn.EnviaPedidoParaPainel(opcao, numped, filial);
+                nn.EnviaPedidoParaPainel(opcao, numped, filial, botao);
                 String mensagem = "Pedido da NFC-e de N. " + numped + " enviado pra o painel!";
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "MensagemDeAlert", "alert('" + mensagem + "');", true);
                 TextBoxNumero.Text = "";
             }
             else if (opcao == 3 && filial != 0 && numped > 99999 && (condVenda == 8 || condVenda == 1))
             {
-                nn.EnviaPedidoParaPainel(opcao, numped, filial);
+                nn.EnviaPedidoParaPainel(opcao, numped, filial, botao);
+                String mensagem = "Pedido " + numped + " enviado pra o painel!";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "MensagemDeAlert", "alert('" + mensagem + "');", true);
+                TextBoxNumero.Text = "";
+            }
+            else
+            {
+                String mensagem = "Não foi possível enviar o pedido favor verificar as informações ou Verifique com a TI!";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "MensagemDeAlert", "alert('" + mensagem + "');", true);
+            }
+
+        }
+
+        protected void btPrioridade_Click(object sender, EventArgs e)
+        {
+            int opcao = Convert.ToInt32(DropDownList1.SelectedItem.Value);
+            int filial = Convert.ToInt32(DropDownList2.SelectedItem.Value);
+            long numped = string.IsNullOrEmpty(TextBoxNumero.Text) ? 0 : Convert.ToInt64(TextBoxNumero.Text);
+            ServiceReference2.WebService1SoapClient nn = new ServiceReference2.WebService1SoapClient();
+
+            long numero = string.IsNullOrEmpty(TextBoxNumero.Text) ? 0 : Convert.ToInt64(TextBoxNumero.Text);
+            int condVenda = nn.ValidaEnvioPedidoPainel(opcao, numero, filial).CondVenda;
+            int botao = 2;
+
+            if (opcao == 2 && filial != 0 && numped < 999998 && condVenda == 8)
+            {
+                nn.EnviaPedidoParaPainel(opcao, numped, filial, botao);
+                String mensagem = "Pedido da NFC-e de N. " + numped + " enviado pra o painel!";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "MensagemDeAlert", "alert('" + mensagem + "');", true);
+                TextBoxNumero.Text = "";
+            }
+            else if (opcao == 3 && filial != 0 && numped > 99999 && (condVenda == 8 || condVenda == 1))
+            {
+                nn.EnviaPedidoParaPainel(opcao, numped, filial, botao);
                 String mensagem = "Pedido " + numped + " enviado pra o painel!";
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "MensagemDeAlert", "alert('" + mensagem + "');", true);
                 TextBoxNumero.Text = "";
